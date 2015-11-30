@@ -13,7 +13,7 @@ operation:
       response_type = '0'
       try:
         r = j['id']
-        if r in ['unauthorized', 'not_found', 'invalid_params', 'bad_request']:
+        if r in ['unauthorized', 'not_found', 'invalid_params', 'bad_request', 'verification_required']:
           response_type = '-1'
       except:
         print "json is an array"
@@ -28,4 +28,5 @@ operation:
     - NOT_FOUND: r == 'not_found'
     - INVALID_PARAMS: r == 'invalid_params'
     - BAD_REQUEST: r == 'bad_request'
+    - VERIFICATION_REQUIRED: r == 'verification_required'
     - FAILURE
