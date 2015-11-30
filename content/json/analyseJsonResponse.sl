@@ -10,10 +10,15 @@ operation:
     python_script: |
       import json
       j = json.loads(json_response)
-      r = j['id']
       response_type = '0'
-      if r in ['unauthorized', 'not_found', 'invalid_params', 'bad_request']:
-        response_type = '-1'
+      try:
+        r = j['id']
+        if r in ['unauthorized', 'not_found', 'invalid_params', 'bad_request']:
+          response_type = '-1'
+      except:
+        print "json is an array"
+        r = "Array"
+
   outputs:
     - returnResult: response_type
     - idTypeResult: r
