@@ -10,7 +10,10 @@
 #   - return_result - the response of the operation in case of success, the error message otherwise 
 #   - error_message - return_result if statusCode is not '200' 
 #   - return_code - '0' if success, '-1' otherwise 
-#   - status_code - the code returned by the operation 
+#   - status_code - the code returned by the operation
+#
+# Note : Use the operation json/analyseJsonResponse.sl in order to analyse the output of this operation !
+# 
 #################################################### 
 
 namespace: io.cloudslang.heroku.builds
