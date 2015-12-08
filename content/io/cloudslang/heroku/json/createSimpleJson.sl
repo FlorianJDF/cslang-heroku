@@ -1,4 +1,19 @@
 # Created by Florian TEISSEDRE - florian.teissedre@hpe.com
+#################################################### 
+# This flow creates a json output from a list 
+# 
+# Inputs: 
+#   - list - the list that will be convert into Json. The format is : key:value|key:value.
+#             the "" will be automatically add the keys, but need to be put on the values if needed
+#             Exemple : name:"John"|age:35|isDoe:true
+#
+# Outputs: 
+#   - json: the json that represent the list 
+#
+# Results:
+#   - FAILURE: if an error has occured
+#   - SUCCESS: if the json was created
+####################################################
 
 namespace: io.cloudslang.heroku.json
 
@@ -24,7 +39,7 @@ operation:
       json += "}"
       print json
   outputs:
-    - json: json
+    - json: ${json}
   results:
-    - FAILURE: error == -1
+    - FAILURE: ${ error == -1 }
     - SUCCESS

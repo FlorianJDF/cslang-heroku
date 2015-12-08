@@ -34,12 +34,12 @@ flow:
     - delete_app_collaborator:
         do:
           imports_operations.http_client_action:
-            - url: "'https://api.heroku.com/apps/' + app_name_or_id +'/collaborators/' + collaborator_name_or_id"
-            - method: "'DELETE'"
-            - username: "username"
-            - password: "password"
-            - contentType: "'application/json'"
-            - headers: "'Accept:application/vnd.heroku+json; version=3'"
+            - url: ${'https://api.heroku.com/apps/' + app_name_or_id +'/collaborators/' + collaborator_name_or_id}
+            - method: "DELETE"
+            - username: ${username}
+            - password: ${password}
+            - contentType: "application/json"
+            - headers: "Accept:application/vnd.heroku+json; version=3"
         publish: 
           - return_result
           - error_message

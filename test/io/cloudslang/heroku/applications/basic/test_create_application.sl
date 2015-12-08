@@ -10,7 +10,7 @@ flow:
   name: test_create_application
   inputs:
     - app_name:
-        default: "''"
+        default: ""
         required: false
     - username
     - password
@@ -18,18 +18,18 @@ flow:
     - create_json:
         do:
           json_operations.createSimpleJson:
-            - list: "'name:\"' + app_name + '\"'"
+            - list: ${'name:' + '\"' + app_name + '\"' }
         publish:
-          - json_result: json
+          - json
 
     - create_app:
         do:
           heroku_operations.create_app:
             - username
             - password
-            - json_body: "json_result"
+            - json_body: ${json}
         publish:
-          - http_result: return_result
+          - http_result: ${return_result}
         navigate:
           SUCCESS: analyse_response
           FAILURE: HTTP_ERROR
@@ -37,7 +37,7 @@ flow:
     - analyse_response:
         do:
           json_operations.analyseJsonResponse:
-            - json_response: "http_result"
+            - json_response: ${http_result}
         publish:
           - returnResult
           - idTypeResult
@@ -52,7 +52,7 @@ flow:
 
 
   results:
-    - SUCCESS : response_type == '0'
+    - SUCCESS : ${ response_type == '0' }
     - FAILURE 
     - HTTP_ERROR
     - JSON_ANALYSE_ERROR

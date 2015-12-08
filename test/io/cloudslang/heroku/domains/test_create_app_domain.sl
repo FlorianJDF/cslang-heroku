@@ -17,18 +17,18 @@ flow:
     - create_json:
         do:
           json_operations.createSimpleJson:
-            - list: "'hostname:\"' + hostname + '\"'"
+            - list: ${'hostname:\"' + hostname + '\"'}
         publish:
-          - json_result: json
+          - json_result: ${json}
     - create_app_domains:
         do:
           heroku_operations.create_app_domain:
             - username
             - password
             - app_name_or_id
-            - json_body: "json_result"
+            - json_body: ${json_result}
         publish:
-          - http_result: return_result
+          - http_result: ${return_result}
         navigate:
           SUCCESS: analyse_response
           FAILURE: HTTP_ERROR
@@ -36,7 +36,7 @@ flow:
     - analyse_response:
         do:
           json_operations.analyseJsonResponse:
-            - json_response: "http_result"
+            - json_response: ${http_result}
         publish:
           - returnResult
           - idTypeResult
@@ -51,7 +51,7 @@ flow:
 
 
   results:
-    - SUCCESS : response_type == '0'
+    - SUCCESS : ${response_type == '0'}
     - FAILURE 
     - HTTP_ERROR
     - JSON_ANALYSE_ERROR

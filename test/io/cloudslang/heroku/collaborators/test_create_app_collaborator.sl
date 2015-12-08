@@ -14,15 +14,15 @@ flow:
     - app_name_or_id
     - collaborator_name_or_id
     - isSilent:
-        default: "'false'"
+        default: "false"
         required: false
   workflow:
     - create_json:
         do:
           json_operations.createSimpleJson:
-            - list: "'silent:' + isSilent + '|' + 'user:\"' + collaborator_name_or_id + '\"'"
+            - list: ${'silent:' + isSilent + '|' + 'user:\"' + collaborator_name_or_id + '\"'}
         publish:
-          - json_result: json
+          - json_result: ${json}
 
     - create_app_collaborator:
         do:
@@ -31,9 +31,9 @@ flow:
             - password
             - app_name_or_id
             - collaborator_name_or_id
-            - json_body: "json_result"
+            - json_body: ${json_result}
         publish:
-          - http_result: return_result
+          - http_result: ${return_result}
         navigate:
           SUCCESS: analyse_response
           FAILURE: HTTP_ERROR
@@ -41,7 +41,7 @@ flow:
     - analyse_response:
         do:
           json_operations.analyseJsonResponse:
-            - json_response: "http_result"
+            - json_response: ${http_result}
         publish:
           - returnResult
           - idTypeResult
@@ -56,7 +56,7 @@ flow:
 
 
   results:
-    - SUCCESS : response_type == '0'
+    - SUCCESS : ${response_type == '0'}
     - FAILURE 
     - HTTP_ERROR
     - JSON_ANALYSE_ERROR

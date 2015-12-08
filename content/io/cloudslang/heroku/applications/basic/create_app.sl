@@ -22,6 +22,7 @@
 # Note : Use the operation json/createJsonSimple.sl in order to create the json_body
 #        And use the operation json/analyseJsonResponse.sl in order to analyse the output of this operation !
 #
+#
 #################################################### 
 namespace: io.cloudslang.heroku.applications.basic
 
@@ -34,19 +35,20 @@ flow:
     - username
     - password
     - json_body:
-        default: "'{}'"
+        default: "{}"
         required: false
   workflow:
     - create_app:
         do:
           imports_operations.http_client_action:
-            - url: "'https://api.heroku.com/apps'"
-            - method: "'POST'"
-            - username: "username"
-            - password: "password"
-            - contentType: "'application/json'"
-            - headers: "'Accept:application/vnd.heroku+json; version=3'"
-            - body: "json_body"
+            - url: "https://api.heroku.com/apps"
+            - method: "POST"
+            - username: ${username}
+            - password: ${password}
+            - contentType: "application/json"
+            - headers: "Accept:application/vnd.heroku+json; version=3"
+            - body: ${json_body}
+            - validHttpStatusCodes: ${ range(200, 600) }
         publish: 
           - return_result
           - error_message

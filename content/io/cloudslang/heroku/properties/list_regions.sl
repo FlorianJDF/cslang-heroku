@@ -29,12 +29,13 @@ flow:
     - list_regions:
         do:
           imports_operations.http_client_action:
-            - url: "'https://api.heroku.com/regions'"
-            - method: "'GET'"
-            - username: "username"
-            - password: "password"
-            - contentType: "'application/json'"
-            - headers: "'Accept:application/vnd.heroku+json; version=3'"
+            - url: "https://api.heroku.com/regions"
+            - method: "GET"
+            - username: ${username}
+            - password: ${password}
+            - contentType: "application/json"
+            - headers: "Accept:application/vnd.heroku+json; version=3"
+            - validHttpStatusCodes: ${ range(200, 600) }
         publish: 
           - return_result
           - error_message

@@ -20,13 +20,13 @@ operation:
         r = "Array"
 
   outputs:
-    - returnResult: response_type
-    - idTypeResult: r
+    - returnResult: ${response_type}
+    - idTypeResult: ${r}
   results: 
-    - SUCCESS: response_type == '0'
-    - UNAUTHORIZED: r == 'unauthorized'
-    - NOT_FOUND: r == 'not_found'
-    - INVALID_PARAMS: r == 'invalid_params'
-    - BAD_REQUEST: r == 'bad_request'
-    - VERIFICATION_REQUIRED: r == 'verification_required'
+    - SUCCESS: ${response_type == '0'}
+    - UNAUTHORIZED: ${r == 'unauthorized'}
+    - NOT_FOUND: ${r == 'not_found'}
+    - INVALID_PARAMS: ${r == 'invalid_params'}
+    - BAD_REQUEST: ${r == 'bad_request'}
+    - VERIFICATION_REQUIRED: ${r == 'verification_required'}
     - FAILURE
